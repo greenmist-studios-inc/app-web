@@ -26,7 +26,11 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.security:spring-security-web")
+    compile("org.mybatis:mybatis:3.2.7")
     compile("org.mybatis:mybatis-spring:1.2.2")
+    compile("org.springframework:spring-jdbc:+")
+    compile("com.h2database:h2:+")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

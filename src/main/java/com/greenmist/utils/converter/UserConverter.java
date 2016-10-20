@@ -3,6 +3,7 @@ package com.greenmist.utils.converter;
 import com.greenmist.exception.UserInvalidException;
 import com.greenmist.model.User;
 import com.greenmist.rest.request.RegisterUserRequest;
+import com.greenmist.utils.StringUtils;
 
 /**
  * Created by eckob on 10/5/2016.
@@ -25,5 +26,4 @@ public class UserConverter {
             throw UserInvalidException.MALFORMED_REQUEST;
         }
     }
-
 }
