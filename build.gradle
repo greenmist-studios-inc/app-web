@@ -30,7 +30,7 @@ dependencies {
     compile("org.mybatis:mybatis:3.4.1")
     compile("org.mybatis:mybatis-spring:1.2.5")
     compile("org.springframework:spring-jdbc:4.3.3.RELEASE")
-    compile("com.h2database:h2:1.4.192")
+    compile("mysql:mysql-connector-java:5.1.6")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

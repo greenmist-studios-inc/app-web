@@ -4,34 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.greenmist.persistence.mapper.UserMapper">
-    <cache/>
 
-    <resultMap type="org.greenmist.model.User" id="usermap">
-        <id column="id" property="id"/>
+    <resultMap type="com.greenmist.model.User" id="UserResultMap">
+        <id column="id" property="id" javaType="long"/>
         <result column="name" property="name"/>
-        <result column="firstName" property="funkyNumber"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
     </resultMap>
 
-    <select id="getUserById" resultMap="User">
+    <select id="getUserById" resultMap="UserResultMap" parameterType="long">
         SELECT id, firstName, lastName, email
         FROM app.user
         WHERE id=#{id}
         LIMIT 1
     </select>
 
-    <select id="getUserByEmail" resultMap="User">
-        SELECT *
+    <select id="getUserByEmail" resultMap="UserResultMap" parameterType="String">
+        SELECT id, firstName, lastName, email
         FROM app.user
         WHERE email=#{email}
         LIMIT 1
     </select>
 
-    <insert id="insertUser" parameterType="User">
+    <insert id="insertUser" parameterType="com.greenmist.model.User">
         INSERT INTO app.user (firstName, lastName, email, password)
         VALUES (#{firstName}, #{lastName}, #{email}, #(password))
     </insert>
 
-    <update id="updateUser" parameterType="User">
+    <update id="updateUser" parameterType="com.greenmist.model.User">
         UPDATE app.user
         SET firstName = #{firstName}
         SET lastName = #{lastName}

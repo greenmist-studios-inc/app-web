@@ -7,7 +7,7 @@ import com.greenmist.model.User;
  */
 public interface UserService {
 
-    User getUserById(int id);
+    User getUserById(long id);
 
     User getUserByEmail(String email);
 

@@ -7,7 +7,7 @@ import com.greenmist.model.User;
  */
 public interface UserMapper {
 
-    User getUserById(int id);
+    User getUserById(long id);
 
     User getUserByEmail(String email);
 
