@@ -1,6 +1,7 @@
 package com.greenmist.persistence.mapper;
 
 import com.greenmist.model.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by eckob on 10/5/2016.
@@ -11,7 +12,7 @@ public interface UserMapper {
 
     User getUserByEmail(String email);
 
-    boolean updateUser(User user);
+    boolean updateUser(@Param("User") User user);
 
-    boolean insertUser(User user, String password);
+    boolean insertUser(@Param("User") User user, @Param("password") String password);
 }

@@ -4,9 +4,12 @@ import com.greenmist.model.User;
 import com.greenmist.persistence.mapper.UserMapper;
 import com.greenmist.service.UserService;
 import com.greenmist.utils.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by eckob on 10/6/2016.
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public boolean updateUser(@Param("User") User user) {
         return false;
     }
 

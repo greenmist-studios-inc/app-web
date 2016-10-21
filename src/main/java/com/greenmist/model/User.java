@@ -1,9 +1,15 @@
 package com.greenmist.model;
 
+import org.apache.ibatis.type.Alias;
+
+import java.io.Serializable;
+
 /**
  * Created by eckob on 10/2/2016.
  */
-public class User {
+@Alias("User")
+public class User implements Serializable {
+
     private long id;
     private String firstName;
     private String lastName;

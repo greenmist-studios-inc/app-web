@@ -5,37 +5,38 @@
 
 <mapper namespace="com.greenmist.persistence.mapper.UserMapper">
 
-    <resultMap type="com.greenmist.model.User" id="UserResultMap">
+    <resultMap type="User" id="UserResultMap">
         <id column="id" property="id" javaType="long"/>
         <result column="name" property="name"/>
         <result column="first_name" property="firstName"/>
         <result column="last_name" property="lastName"/>
+        <result column="password" property="password"/>
         <result column="email" property="email"/>
     </resultMap>
 
     <select id="getUserById" resultMap="UserResultMap" parameterType="long">
-        SELECT id, firstName, lastName, email
+        SELECT id, first_name, last_name, email
         FROM app.user
         WHERE id=#{id}
         LIMIT 1
     </select>
 
     <select id="getUserByEmail" resultMap="UserResultMap" parameterType="String">
-        SELECT id, firstName, lastName, email
+        SELECT id, first_name, last_name, email
         FROM app.user
         WHERE email=#{email}
         LIMIT 1
     </select>
 
-    <insert id="insertUser" parameterType="com.greenmist.model.User">
-        INSERT INTO app.user (firstName, lastName, email, password)
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO app.user (first_name, last_name, email, password)
         VALUES (#{firstName}, #{lastName}, #{email}, #(password))
     </insert>
 
-    <update id="updateUser" parameterType="com.greenmist.model.User">
+    <update id="updateUser" parameterType="User">
         UPDATE app.user
-        SET firstName = #{firstName}
-        SET lastName = #{lastName}
+        SET first_name = #{firstName}
+        SET last_name = #{lastName}
         SET email = #{email}
         WHERE id=#{id}
     </update>
