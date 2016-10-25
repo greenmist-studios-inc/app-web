@@ -27,4 +27,14 @@ public class UserController {
         userService.insertUser(user, request.getPassword());
         return user;
     }
+
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    public String login(@RequestBody LoginRequest request) throws Exception {
+        if (request == null) {
+            throw ErrorException.EMPTY_REQUESTS;
+        } else {
+            userService.authenticate(request.getEmail(), request.getPassword());
+        }
+        return "token";
+    }
 }

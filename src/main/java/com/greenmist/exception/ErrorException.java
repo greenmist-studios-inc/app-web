@@ -5,7 +5,11 @@ import com.greenmist.exception.code.ErrorCode;
 /**
  * Created by eckob on 10/5/2016.
  */
+@SuppressWarnings("ThrowableInstanceNeverThrown")
 public class ErrorException extends Exception {
+
+    public static final ErrorException EMPTY_REQUESTS = new ErrorException(ErrorCode.INVALID_REQUEST, "Your request was empty.");
+    public static final ErrorException MALFORMED_REQUEST = new ErrorException(ErrorCode.INVALID_REQUEST, "Your request was malformed.");
 
     private ErrorCode errorCode;
     private String[] errorDetails;
