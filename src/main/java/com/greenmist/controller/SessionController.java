@@ -1,40 +1,41 @@
 package com.greenmist.controller;
 
 import com.greenmist.exception.ErrorException;
-import com.greenmist.model.User;
+import com.greenmist.model.AuthToken;
 import com.greenmist.rest.request.LoginRequest;
-import com.greenmist.rest.request.RegisterUserRequest;
-import com.greenmist.service.UserService;
-import com.greenmist.service.implementation.UserServiceImpl;
-import com.greenmist.utils.StringUtils;
-import com.greenmist.utils.converter.UserConverter;
+import com.greenmist.rest.response.SessionResponse;
+import com.greenmist.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
+import static com.greenmist.rest.Headers.ACCOUNT_HEADER;
+import static com.greenmist.rest.Headers.TOKEN_HEADER;
 
 /**
  * Created by eckob on 10/2/2016.
  */
 @RestController
-public class UserController {
+public class SessionController {
 
     @Autowired
-    private UserService userService;
+    private SessionService sessionService;
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public User registerUser(@RequestBody RegisterUserRequest request) throws Exception {
-        User user = UserConverter.to(request);
-        userService.insertUser(user, request.getPassword());
-        return user;
-    }
-
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public String login(@RequestBody LoginRequest request) throws Exception {
+    @RequestMapping(value = "/user/session", method = RequestMethod.POST)
+    public SessionResponse login(@RequestBody LoginRequest request) throws Exception {
         if (request == null) {
             throw ErrorException.EMPTY_REQUESTS;
         } else {
-            userService.authenticate(request.getEmail(), request.getPassword());
+            return sessionService.login(request.getEmail(), request.getPassword());
         }
-        return "token";
+    }
+
+    @RequestMapping(value = "/user/session", method = RequestMethod.GET)
+    public AuthToken getSession(@RequestHeader(ACCOUNT_HEADER) int accountId, @RequestHeader(TOKEN_HEADER) String token) throws Exception {
+        return sessionService.checkAuthToken(accountId, token);
+    }
+
+    @RequestMapping(value = "/user/session", method = RequestMethod.DELETE)
+    public void logout(@RequestHeader(ACCOUNT_HEADER) int accountId, @RequestHeader(TOKEN_HEADER) String token) throws Exception {
+        sessionService.logout(new AuthToken(accountId, token));
     }
 }

@@ -1,17 +1,19 @@
 package com.greenmist.persistence.mapper;
 
 import com.greenmist.model.AuthToken;
-import com.greenmist.model.User;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by eckob on 10/5/2016.
  */
-public interface TokenMapper {
+public interface AuthTokenMapper {
 
     void updateAuthToken(AuthToken authToken);
 
     void insertAuthToken(AuthToken authToken);
+
+    AuthToken getAuthToken(AuthToken authToken);
+
+    void deleteAuthToken(AuthToken authToken);
 
     void deleteExpiredAuthTokens();
 }

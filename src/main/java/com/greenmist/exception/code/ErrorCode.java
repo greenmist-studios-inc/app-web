@@ -9,7 +9,8 @@ public enum ErrorCode {
     BASE_ERROR(0, "Something went wrong", HttpStatus.NOT_FOUND),
     INVALID_REQUEST(1, "Your request is invalid.", HttpStatus.BAD_REQUEST),
     EMAIL_TAKEN_REQUEST(2, "The email provided has already been taken.", HttpStatus.NOT_FOUND),
-    LOGIN_ERROR(3, "The email or password provided was incorrect.", HttpStatus.NOT_FOUND);
+    LOGIN_ERROR(3, "The email or password provided was incorrect.", HttpStatus.NOT_FOUND),
+    UNAUTHORIZED(4, "Unauthorized", HttpStatus.UNAUTHORIZED);
 
     private int errorCode;
     private String errorMessage;

@@ -3,41 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.greenmist.persistence.mapper.UserMapper">
+<mapper namespace="com.greenmist.persistence.mapper.AuthTokenMapper">
 
-    <resultMap type="User" id="UserResultMap">
-        <id column="id" property="id" javaType="long"/>
-        <result column="name" property="name"/>
-        <result column="first_name" property="firstName"/>
-        <result column="last_name" property="lastName"/>
-        <result column="password" property="password"/>
-        <result column="email" property="email"/>
+    <resultMap type="AuthToken" id="AuthTokenResultMap">
+        <result column="token" property="token"/>
+        <result column="user_id" property="userId" javaType="long"/>
     </resultMap>
 
-    <select id="getUserById" resultMap="UserResultMap" parameterType="long">
-        SELECT id, first_name, last_name, email, password
-        FROM app.user
-        WHERE id=#{id}
-        LIMIT 1
-    </select>
-
-    <select id="getUserByEmail" resultMap="UserResultMap" parameterType="String">
-        SELECT id, first_name, last_name, email, password
-        FROM app.user
-        WHERE email=#{email}
-        LIMIT 1
-    </select>
-
-    <insert id="insertUser" parameterType="User">
-        INSERT INTO app.user (first_name, last_name, email, password)
-        VALUES (#{User.firstName}, #{User.lastName}, #{User.email}, #{password})
+    <insert id="insertAuthToken" parameterType="AuthToken">
+        INSERT INTO app.auth_token (token, user_id)
+        VALUES (#{token}, #{userId})
     </insert>
 
-    <update id="updateUser" parameterType="User">
-        UPDATE app.user
-        SET first_name = #{User.firstName}
-        SET last_name = #{User.lastName}
-        SET email = #{User.email}
-        WHERE id=#{id}
+    <update id="updateAuthToken" parameterType="AuthToken">
+        UPDATE app.auth_token
+        SET last_used = CURRENT_TIMESTAMP
+        WHERE user_id=#{userId} AND token = #{token}
     </update>
+
+    <select id="getAuthToken" resultMap="AuthTokenResultMap" parameterType="AuthToken" resultType="AuthToken">
+        SELECT user_id, token FROM app.auth_token
+        WHERE user_id=#{userId}
+        AND token=#{token}
+        AND last_used <![CDATA[>]]> Date_Sub(Now(),INTERVAL 2 HOUR)
+        LIMIT 1
+    </select>
+
+    <delete id="deleteAuthToken" parameterType="AuthToken">
+        DELETE FROM app.auth_token
+        WHERE user_id=#{userId} AND token=#{token}
+    </delete>
+
+    <delete id="deleteExpiredAuthTokens" parameterType="AuthToken">
+        DELETE FROM app.auth_token
+        WHERE last_used <![CDATA[<]]> Date_Sub(Now(),INTERVAL 2 HOUR)
+    </delete>
+
 </mapper>

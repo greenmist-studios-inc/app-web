@@ -5,13 +5,11 @@ import com.greenmist.model.AuthToken;
 /**
  * Created by eckob on 10/23/2016.
  */
-public interface TokenService {
+public interface AuthTokenService {
 
-    AuthToken authenticateUser(String email, String password);
+    AuthToken getAuthToken(AuthToken authToken);
 
-    AuthToken checkAuthToken(AuthToken authToken);
-
-    void deleteAuthToken(String token);
+    void deleteAuthToken(AuthToken authToken);
 
     void updateAuthToken(AuthToken authToken);
 

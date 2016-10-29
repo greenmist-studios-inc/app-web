@@ -1,7 +1,6 @@
 package com.greenmist.service;
 
 import com.greenmist.exception.EmailTakenException;
-import com.greenmist.exception.ErrorException;
 import com.greenmist.exception.UserInvalidException;
 import com.greenmist.model.User;
 

@@ -1,67 +1,49 @@
 package com.greenmist.service.implementation;
 
 import com.greenmist.model.AuthToken;
-import com.greenmist.model.User;
-import com.greenmist.service.TokenService;
-import com.greenmist.service.UserService;
-import com.greenmist.utils.TokenGenerator;
+import com.greenmist.persistence.mapper.AuthTokenMapper;
+import com.greenmist.service.AuthTokenService;
+import com.greenmist.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
-import static org.apache.coyote.http11.Constants.a;
 
 /**
  * Created by eckob on 10/23/2016.
  */
 @Service("tokenService")
-public class TokenServiceImpl implements TokenService {
+public class AuthTokenServiceImpl implements AuthTokenService {
 
-    private final UserService userService;
     private final AuthTokenMapper authTokenMapper;
 
     @Autowired
-    public AuthTokenService(UserService userService) {
-        this.userService = userService;
+    public AuthTokenServiceImpl(AuthTokenMapper authTokenMapper) {
+        this.authTokenMapper = authTokenMapper;
     }
 
     @Override
-    public AuthToken authenticateUser(String email, String password) {
-        User user = userService.getUserByEmail(email);
-
-        if (user != null) {
-            AuthToken authToken = new AuthToken();
-            authToken.setAccountId(user.getId());
-            authToken.setToken(TokenGenerator.generateToken());
-
-            insertAuthToken(authToken);
-            return authToken;
-        }
-        return null;
+    public AuthToken getAuthToken(AuthToken authToken) {
+        return authTokenMapper.getAuthToken(authToken);
     }
 
     @Override
-    public AuthToken checkAuthToken(AuthToken authToken) {
-        return null;
-    }
-
-    @Override
-    public void deleteAuthToken(String token) {
-
+    public void deleteAuthToken(AuthToken authToken) {
+        authTokenMapper.deleteAuthToken(authToken);
     }
 
     @Override
     public void updateAuthToken(AuthToken authToken) {
-
+        if (StringUtils.isNotBlank(authToken.getToken())) {
+            authTokenMapper.updateAuthToken(authToken);
+        }
     }
 
     @Override
     public void insertAuthToken(AuthToken authToken) {
-
+        authTokenMapper.insertAuthToken(authToken);
     }
 
     @Override
     public void deleteExpiredAuthTokens() {
-
+        authTokenMapper.deleteExpiredAuthTokens();
     }
 }
