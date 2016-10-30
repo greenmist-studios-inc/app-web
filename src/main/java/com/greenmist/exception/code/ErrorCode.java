@@ -8,9 +8,13 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
     BASE_ERROR(0, "Something went wrong", HttpStatus.NOT_FOUND),
     INVALID_REQUEST(1, "Your request is invalid.", HttpStatus.BAD_REQUEST),
-    EMAIL_TAKEN_REQUEST(2, "The email provided has already been taken.", HttpStatus.NOT_FOUND),
-    LOGIN_ERROR(3, "The email or password provided was incorrect.", HttpStatus.NOT_FOUND),
-    UNAUTHORIZED(4, "Unauthorized", HttpStatus.UNAUTHORIZED);
+    UNAUTHORIZED(2, "Unauthorized", HttpStatus.UNAUTHORIZED),
+    MISSING_AUTHENTICATION_HEADERS(3, "Missing authentication headers.", HttpStatus.UNAUTHORIZED),
+    INVALID_TOKEN (4, "Invalid Token.", HttpStatus.UNAUTHORIZED),
+    INVALID_ACCOUNT_ID (5, "Invalid Account ID.", HttpStatus.UNAUTHORIZED),
+    EMAIL_TAKEN_REQUEST(6, "The email provided has already been taken.", HttpStatus.NOT_FOUND),
+    LOGIN_ERROR(7, "The email or password provided was incorrect.", HttpStatus.NOT_FOUND),
+    REGISTER_USER_ERROR(8, "Could not create user.", HttpStatus.NOT_FOUND);
 
     private int errorCode;
     private String errorMessage;

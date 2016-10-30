@@ -5,13 +5,13 @@ package com.greenmist.model;
  */
 public class AuthToken {
 
-    private long userId;
+    private int userId;
     private String token;
 
     public AuthToken() {
     }
 
-    public AuthToken(long userId, String token) {
+    public AuthToken(int userId, String token) {
         this.userId = userId;
         this.token = token;
     }
@@ -20,7 +20,7 @@ public class AuthToken {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

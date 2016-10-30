@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalErrorExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalErrorExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalErrorExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleErrorExceptionRequest(Exception e, WebRequest request) {
@@ -32,11 +32,11 @@ public class GlobalErrorExceptionHandler extends ResponseEntityExceptionHandler 
             ErrorException errorException = (ErrorException) e;
             ErrorResponse errorResponse = new ErrorResponse(errorException);
 
-            logger.debug(errorResponse.toString());
+            LOGGER.debug(errorResponse.toString());
             return handleExceptionInternal(e, errorResponse, headers, errorException.getErrorCode().getHttpStatus(), request);
         } else {
-            logger.debug(e.toString());
-            return handleExceptionInternal(e, e, headers, HttpStatus.NOT_FOUND, request);
+            LOGGER.debug(e.toString());
+            return handleExceptionInternal(e, e, headers, HttpStatus.INTERNAL_SERVER_ERROR, request);
         }
     }
 }

@@ -1,28 +1,13 @@
-package com.greenmist.model;
-
-import org.apache.ibatis.type.Alias;
-
-import java.io.Serializable;
+package com.greenmist.rest.request;
 
 /**
- * Created by eckob on 10/2/2016.
+ * Created by eckob on 10/5/2016.
  */
-@Alias("User")
-public class User implements Serializable {
+public class UpdateUserRequest {
 
-    private int id;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -46,13 +31,5 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

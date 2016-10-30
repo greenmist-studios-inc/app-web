@@ -5,8 +5,8 @@ import com.greenmist.exception.code.ErrorCode;
 /**
  * Created by eckob on 10/29/2016.
  */
-public class UnauthorizedException extends ErrorException {
-    public UnauthorizedException(String... errorDetails) {
+public class AuthorizationException extends ErrorException {
+    public AuthorizationException(String... errorDetails) {
         super(ErrorCode.UNAUTHORIZED, errorDetails);
     }
 }

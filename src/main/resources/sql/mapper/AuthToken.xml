@@ -4,10 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.greenmist.persistence.mapper.AuthTokenMapper">
-
     <resultMap type="AuthToken" id="AuthTokenResultMap">
         <result column="token" property="token"/>
-        <result column="user_id" property="userId" javaType="long"/>
+        <result column="user_id" property="userId" javaType="int"/>
     </resultMap>
 
     <insert id="insertAuthToken" parameterType="AuthToken">
@@ -15,13 +14,13 @@
         VALUES (#{token}, #{userId})
     </insert>
 
-    <update id="updateAuthToken" parameterType="AuthToken">
+    <update id="updateAuthToken" parameterType="AuthToken" flushCache="true">
         UPDATE app.auth_token
         SET last_used = CURRENT_TIMESTAMP
         WHERE user_id=#{userId} AND token = #{token}
     </update>
 
-    <select id="getAuthToken" resultMap="AuthTokenResultMap" parameterType="AuthToken" resultType="AuthToken">
+    <select id="getAuthToken" resultMap="AuthTokenResultMap" parameterType="AuthToken" resultType="AuthToken"  flushCache="true">
         SELECT user_id, token FROM app.auth_token
         WHERE user_id=#{userId}
         AND token=#{token}

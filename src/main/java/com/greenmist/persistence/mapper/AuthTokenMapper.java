@@ -7,7 +7,7 @@ import com.greenmist.model.AuthToken;
  */
 public interface AuthTokenMapper {
 
-    void updateAuthToken(AuthToken authToken);
+    boolean updateAuthToken(AuthToken authToken);
 
     void insertAuthToken(AuthToken authToken);
 

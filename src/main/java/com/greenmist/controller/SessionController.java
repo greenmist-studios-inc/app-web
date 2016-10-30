@@ -30,12 +30,12 @@ public class SessionController {
     }
 
     @RequestMapping(value = "/user/session", method = RequestMethod.GET)
-    public AuthToken getSession(@RequestHeader(ACCOUNT_HEADER) int accountId, @RequestHeader(TOKEN_HEADER) String token) throws Exception {
-        return sessionService.checkAuthToken(accountId, token);
+    public AuthToken getSession(@RequestHeader(ACCOUNT_HEADER) int userId, @RequestHeader(TOKEN_HEADER) String token) throws Exception {
+        return sessionService.checkAuthToken(userId, token);
     }
 
     @RequestMapping(value = "/user/session", method = RequestMethod.DELETE)
-    public void logout(@RequestHeader(ACCOUNT_HEADER) int accountId, @RequestHeader(TOKEN_HEADER) String token) throws Exception {
-        sessionService.logout(new AuthToken(accountId, token));
+    public void logout(@RequestHeader(ACCOUNT_HEADER) int userId, @RequestHeader(TOKEN_HEADER) String token) throws Exception {
+        sessionService.logout(new AuthToken(userId, token));
     }
 }

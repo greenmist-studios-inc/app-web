@@ -6,7 +6,7 @@
 <mapper namespace="com.greenmist.persistence.mapper.UserMapper">
 
     <resultMap type="User" id="UserResultMap">
-        <id column="id" property="id" javaType="long"/>
+        <id column="id" property="id" javaType="int"/>
         <result column="name" property="name"/>
         <result column="first_name" property="firstName"/>
         <result column="last_name" property="lastName"/>
@@ -30,14 +30,27 @@
 
     <insert id="insertUser" parameterType="User">
         INSERT INTO app.user (first_name, last_name, email, password)
-        VALUES (#{User.firstName}, #{User.lastName}, #{User.email}, #{password})
+        VALUES (#{user.firstName}, #{user.lastName}, #{user.email}, #{password})
     </insert>
+
+    <update id="updatePassword" parameterType="User">
+        UPDATE app.user
+        SET password = #{password}
+        WHERE id=#{user.id}
+    </update>
 
     <update id="updateUser" parameterType="User">
         UPDATE app.user
-        SET first_name = #{User.firstName}
-        SET last_name = #{User.lastName}
-        SET email = #{User.email}
+        SET first_name = #{firstName}
+        SET last_name = #{lastName}
+        SET email = #{email}
         WHERE id=#{id}
     </update>
+
+    <select id="getUserFromAuthToken" resultMap="UserResultMap" parameterType="String">
+        SELECT u.id, u.first_name, u.last_name, u.email, u.password
+        FROM app.user u, app.auth_token auth_token
+        WHERE auth_token.token = #{token} AND u.id = auth_token.user_id
+        LIMIT 1
+    </select>
 </mapper>

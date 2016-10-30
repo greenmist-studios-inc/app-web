@@ -12,7 +12,11 @@ public interface UserMapper {
 
     User getUserByEmail(String email);
 
-    boolean updateUser(@Param("User") User user);
+    User updateUser(User user);
 
-    boolean insertUser(@Param("User") User user, @Param("password") String password);
+    void updatePassword(@Param("user") User user, @Param("password") String password);
+
+    void insertUser(@Param("user") User user, @Param("password") String password);
+
+    User getUserFromAuthToken(String authToken);
 }
