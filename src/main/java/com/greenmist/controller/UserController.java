@@ -1,6 +1,6 @@
 package com.greenmist.controller;
 
-import com.greenmist.annotations.Authenticate;
+import com.greenmist.annotation.Authenticate;
 import com.greenmist.model.User;
 import com.greenmist.rest.Headers;
 import com.greenmist.rest.request.RegisterUserRequest;

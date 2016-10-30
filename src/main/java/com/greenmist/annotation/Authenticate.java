@@ -1,4 +1,4 @@
-package com.greenmist.annotations;
+package com.greenmist.annotation;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.ElementType;

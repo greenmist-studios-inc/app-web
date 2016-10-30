@@ -1,6 +1,6 @@
 package com.greenmist.filter;
 
-import com.greenmist.annotations.Authenticate;
+import com.greenmist.annotation.Authenticate;
 import com.greenmist.exception.AuthorizationException;
 import com.greenmist.exception.code.ErrorCode;
 import com.greenmist.model.AuthToken;
@@ -25,6 +25,7 @@ import static com.greenmist.rest.Headers.TOKEN_HEADER;
 @Component
 @Authenticate
 public class AuthenticationFilter implements ContainerRequestFilter {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     private final AuthTokenService authTokenService;

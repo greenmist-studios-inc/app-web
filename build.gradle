@@ -27,6 +27,7 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.security:spring-security-web")
+    compile("com.sun.jersey.contribs:jersey-spring:1.9.1")
     compile("org.mybatis:mybatis:3.4.1")
     compile("org.mybatis:mybatis-spring:1.3.0")
     compile("org.springframework:spring-jdbc:4.3.3.RELEASE")
