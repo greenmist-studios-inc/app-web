@@ -88,4 +88,12 @@ public class UserService {
             return userMapper.getUserFromAuthToken(authToken);
         }
     }
+
+    public User getUserFromResetPasswordToken(String resetToken) throws AuthorizationException {
+        if (resetToken == null) {
+            throw new AuthorizationException("Auth token is invalid.");
+        } else {
+            return userMapper.getUserFromResetPasswordToken(resetToken);
+        }
+    }
 }

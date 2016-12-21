@@ -1,8 +1,10 @@
 package com.greenmist.controller;
 
 import com.greenmist.annotation.Authenticate;
+import com.greenmist.annotation.ResetPassword;
 import com.greenmist.model.User;
 import com.greenmist.rest.Headers;
+import com.greenmist.rest.request.ForgotPasswordRequest;
 import com.greenmist.rest.request.RegisterUserRequest;
 import com.greenmist.rest.request.SetPasswordRequest;
 import com.greenmist.rest.request.UpdateUserRequest;
@@ -33,9 +35,14 @@ public class UserController {
         return accountService.updateUser(token, request.getEmail(), request.getFirstName(), request.getLastName());
     }
 
-    @Authenticate
+    @RequestMapping(value = "/user/forgot_password", method = RequestMethod.POST)
+    public void initiateUserPassword(@RequestBody ForgotPasswordRequest request) throws Exception {
+        accountService.initiateForgotPassword(request.getEmail());
+    }
+
+    @ResetPassword
     @RequestMapping(value = "/user/password", method = RequestMethod.POST)
-    public void updateUserPassword(@RequestHeader(Headers.TOKEN_HEADER) String token, @RequestBody SetPasswordRequest request) throws Exception {
+    public void updateUserPassword(@RequestHeader(Headers.RESET_PASSWORD_TOKEN_HEADER) String token, @RequestBody SetPasswordRequest request) throws Exception {
         accountService.updatePassword(token, request.getPassword());
     }
 }

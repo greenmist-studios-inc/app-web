@@ -21,4 +21,6 @@ public interface UserMapper {
     void insertUser(@Param("user") User user, @Param("password") String password);
 
     User getUserFromAuthToken(String authToken);
+
+    User getUserFromResetPasswordToken(String resetPasswordToken);
 }

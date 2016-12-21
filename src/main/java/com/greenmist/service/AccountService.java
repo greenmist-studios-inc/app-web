@@ -3,6 +3,7 @@ package com.greenmist.service;
 import com.greenmist.exception.AuthorizationException;
 import com.greenmist.exception.ErrorException;
 import com.greenmist.exception.UserInvalidException;
+import com.greenmist.exception.code.ErrorCode;
 import com.greenmist.model.AuthToken;
 import com.greenmist.model.User;
 import com.greenmist.rest.response.SessionResponse;
@@ -20,11 +21,13 @@ public class AccountService {
 
     private UserService userService;
     private AuthTokenService authTokenService;
+    private ResetPasswordTokenService resetPasswordTokenService;
 
     @Autowired
-    public AccountService(UserService userService, AuthTokenService authTokenService) {
+    public AccountService(UserService userService, AuthTokenService authTokenService, ResetPasswordTokenService resetPasswordTokenService) {
         this.userService = userService;
         this.authTokenService = authTokenService;
+        this.resetPasswordTokenService = resetPasswordTokenService;
     }
 
     public SessionResponse createUser(User user, String password) throws ErrorException {
@@ -42,12 +45,18 @@ public class AccountService {
         }
     }
 
-    public void updatePassword(String token, String password) throws AuthorizationException, UserInvalidException {
-        User user = userService.getUserFromAuthToken(token);
+    public void initiateForgotPassword(String email) throws ErrorException {
+        resetPasswordTokenService.initiatePasswordResetUser(email);
+        //TODO Send email
+    }
+
+    public void updatePassword(String resetPasswordToken, String password) throws AuthorizationException, UserInvalidException {
+        User user = userService.getUserFromResetPasswordToken(resetPasswordToken);
         if (user == null) {
             throw new UserInvalidException("Could not update user. User doesn't exist.");
         } else {
             userService.updatePassword(user, password);
+            resetPasswordTokenService.deleteResetPasswordTokenByUserId(user.getId());
         }
     }
 

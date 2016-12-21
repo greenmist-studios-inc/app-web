@@ -14,7 +14,8 @@ public enum ErrorCode {
     INVALID_ACCOUNT_ID (5, "Invalid Account ID.", HttpStatus.UNAUTHORIZED),
     EMAIL_TAKEN_REQUEST(6, "The email provided has already been taken.", HttpStatus.NOT_FOUND),
     LOGIN_ERROR(7, "The email or password provided was incorrect.", HttpStatus.NOT_FOUND),
-    REGISTER_USER_ERROR(8, "Could not create user.", HttpStatus.NOT_FOUND);
+    REGISTER_USER_ERROR(8, "Could not create user.", HttpStatus.NOT_FOUND),
+    INVALID_EMAIL_ERROR (9, "The given email is not a valid.", HttpStatus.NOT_FOUND);
 
     private int errorCode;
     private String errorMessage;

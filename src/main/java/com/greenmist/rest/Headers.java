@@ -7,4 +7,5 @@ public class Headers {
 
     public final static String ACCOUNT_HEADER = "X-Account";
     public final static String TOKEN_HEADER = "X-Auth-Token";
+    public final static String RESET_PASSWORD_TOKEN_HEADER = "X-Reset-Password-Token";
 }

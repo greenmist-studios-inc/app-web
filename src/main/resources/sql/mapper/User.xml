@@ -35,14 +35,14 @@
 
     <update id="updateLastLogin" parameterType="long">
         UPDATE app.user
-        SET last_logged_in = now()
+        SET last_logged_in = CURRENT_TIMESTAMP
         WHERE id=#{id}
     </update>
 
     <update id="updatePassword" parameterType="User">
         UPDATE app.user
         SET password = #{password},
-         last_password_change = now()
+         last_password_change = CURRENT_TIMESTAMP
         WHERE id=#{user.id}
     </update>
 
@@ -58,6 +58,13 @@
         SELECT u.id, u.first_name, u.last_name, u.email, u.password
         FROM app.user u, app.auth_token auth_token
         WHERE auth_token.token = #{token} AND u.id = auth_token.user_id
+        LIMIT 1
+    </select>
+
+    <select id="getUserFromResetPasswordToken" resultMap="UserResultMap" parameterType="String">
+        SELECT u.id, u.first_name, u.last_name, u.email, u.password
+        FROM app.user u, app.reset_password_token token
+        WHERE token.token = #{token} AND u.id = token.user_id
         LIMIT 1
     </select>
 </mapper>
