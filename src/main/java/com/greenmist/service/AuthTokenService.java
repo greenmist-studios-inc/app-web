@@ -43,6 +43,7 @@ public class AuthTokenService {
             authToken.setToken(TokenGenerator.generateToken());
 
             insertAuthToken(authToken);
+            userService.updateLastLogin(authToken.getUserId());
             return authToken;
         } else {
             throw new ErrorException(ErrorCode.LOGIN_ERROR);

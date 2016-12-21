@@ -10,9 +10,8 @@ import java.lang.annotation.Target;
  * Created by eckob on 10/29/2016.
  */
 
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-@NameBinding
 public @interface Authenticate {
 
 }

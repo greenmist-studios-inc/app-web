@@ -55,6 +55,10 @@ public class UserService {
         }
     }
 
+    public void updateLastLogin(long id) {
+        userMapper.updateLastLogin(id);
+    }
+
     public void updatePassword(User user, String password) {
         String passwordHash = passwordEncoder.encode(password);
         userMapper.updatePassword(user, passwordHash);

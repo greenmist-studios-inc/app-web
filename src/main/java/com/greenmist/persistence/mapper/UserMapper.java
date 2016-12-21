@@ -14,6 +14,8 @@ public interface UserMapper {
 
     User updateUser(User user);
 
+    void updateLastLogin(long id);
+
     void updatePassword(@Param("user") User user, @Param("password") String password);
 
     void insertUser(@Param("user") User user, @Param("password") String password);

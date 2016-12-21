@@ -33,18 +33,25 @@
         VALUES (#{user.firstName}, #{user.lastName}, #{user.email}, #{password})
     </insert>
 
+    <update id="updateLastLogin" parameterType="long">
+        UPDATE app.user
+        SET last_logged_in = now()
+        WHERE id=#{id}
+    </update>
+
     <update id="updatePassword" parameterType="User">
         UPDATE app.user
-        SET password = #{password}
+        SET password = #{password},
+         last_password_change = now()
         WHERE id=#{user.id}
     </update>
 
     <update id="updateUser" parameterType="User">
         UPDATE app.user
-        SET first_name = #{firstName}
-        SET last_name = #{lastName}
-        SET email = #{email}
-        WHERE id=#{id}
+        SET first_name = #{user.firstName},
+         last_name = #{user.lastName},
+         email = #{user.email}
+        WHERE id=#{user.id}
     </update>
 
     <select id="getUserFromAuthToken" resultMap="UserResultMap" parameterType="String">
