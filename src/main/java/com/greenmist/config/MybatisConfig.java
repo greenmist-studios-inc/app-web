@@ -1,10 +1,8 @@
 package com.greenmist.config;
 
-import org.apache.ibatis.logging.LogFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -23,7 +21,7 @@ public class MybatisConfig {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(com.mysql.jdbc.Driver.class);
         dataSource.setUsername("root");
-        dataSource.setUrl("jdbc:mysql://enterprise:3306/app");
+        dataSource.setUrl("jdbc:mysql://192.168.0.105:3306/app");
         dataSource.setPassword("Ttotto51#");
 
         return dataSource;
